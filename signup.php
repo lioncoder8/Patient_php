@@ -38,7 +38,7 @@ if($_POST){
         'fname'=>$_POST['fname'],
         'lname'=>$_POST['lname'],
         'address'=>$_POST['address'],
-        'nic'=>$_POST['nic'],
+        // 'nic'=>$_POST['nic'],
         'dob'=>$_POST['dob']
     );
 

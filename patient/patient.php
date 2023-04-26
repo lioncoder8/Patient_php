@@ -241,12 +241,6 @@
                                 
                                 </th>
                                 <th class="table-headin">
-                                    
-                                
-                                    NIC
-                                    
-                                </th>
-                                <th class="table-headin">
                                 
                             
                                 Telephone
@@ -296,7 +290,6 @@
                                     $pid=$row["pid"];
                                     $name=$row["pname"];
                                     $email=$row["pemail"];
-                                    $nic=$row["pnic"];
                                     $dob=$row["pdob"];
                                     $tel=$row["ptel"];
                                     
@@ -304,9 +297,6 @@
                                         <td> &nbsp;'.
                                         substr($name,0,35)
                                         .'</td>
-                                        <td>
-                                        '.substr($nic,0,12).'
-                                        </td>
                                         <td>
                                             '.substr($tel,0,10).'
                                         </td>
@@ -353,7 +343,6 @@
             $row=$result->fetch_assoc();
             $name=$row["pname"];
             $email=$row["pemail"];
-            $nic=$row["pnic"];
             $dob=$row["pdob"];
             $tele=$row["ptel"];
             $address=$row["paddress"];
@@ -406,16 +395,6 @@
                             <tr>
                                 <td class="label-td" colspan="2">
                                 '.$email.'<br><br>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="nic" class="form-label">NIC: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                '.$nic.'<br><br>
                                 </td>
                             </tr>
                             <tr>

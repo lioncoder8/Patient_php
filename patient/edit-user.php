@@ -12,7 +12,6 @@
         //print_r($_POST);
         $result= $database->query("select * from webuser");
         $name=$_POST['name'];
-        $nic=$_POST['nic'];
         $oldemail=$_POST["oldemail"];
         $address=$_POST['address'];
         $email=$_POST['email'];
@@ -42,7 +41,7 @@
             }else{
 
                 //$sql1="insert into doctor(docemail,docname,docpassword,docnic,doctel,specialties) values('$email','$name','$password','$nic','$tele',$spec);";
-                $sql1="update patient set pemail='$email',pname='$name',ppassword='$password',pnic='$nic',ptel='$tele',paddress='$address' where pid=$id ;";
+                $sql1="update patient set pemail='$email',pname='$name',ppassword='$password',ptel='$tele',paddress='$address' where pid=$id ;";
                 $database->query($sql1);
                 echo $sql1;
                 $sql1="update webuser set email='$email' where email='$oldemail' ;";
