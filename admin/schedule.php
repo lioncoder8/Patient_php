@@ -1,100 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/animations.css">  
-    <link rel="stylesheet" href="../css/main.css">  
-    <link rel="stylesheet" href="../css/admin.css">
+<?php 
+    include("../default/admin/header.php"); 
+    include("../default/admin/schedule_title.php")
+?>
+
+    <!-- main content start -->
+    <div class="w3-main container" style="margin-left:400px">
         
-    <title>Schedule</title>
-    <style>
-        .popup{
-            animation: transitionIn-Y-bottom 0.5s;
-        }
-        .sub-table{
-            animation: transitionIn-Y-bottom 0.5s;
-        }
-</style>
-</head>
-<body>
-    <?php
-
-    //learn from w3schools.com
-
-    session_start();
-
-    if(isset($_SESSION["user"])){
-        if(($_SESSION["user"])=="" or $_SESSION['usertype']!='a'){
-            header("location: ../login.php");
-        }
-
-    }else{
-        header("location: ../login.php");
-    }
-    
-    
-
-    //import database
-    include("../connection.php");
-
-    
-    ?>
-    <div class="container">
-        <div class="menu">
-            <table class="menu-container" border="0">
+        <div class="dash-body" style="margin-top: 15px">
+            <table border="0" width="100%" style=" border-spacing: 0;margin:0;padding:0;" >
                 <tr>
-                    <td style="padding:10px" colspan="2">
-                        <table border="0" class="profile-container">
-                            <tr>
-                                <td width="30%" style="padding-left:20px" >
-                                    <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
-                                </td>
-                                <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title">Administrator</p>
-                                    <p class="profile-subtitle">admin@edoc.com</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                <a href="../logout.php" ><input type="button" value="Log out" class="logout-btn btn-primary-soft btn"></a>
-                                </td>
-                            </tr>
-                    </table>
+                    <td colspan="4" style="padding-top:10px;width: 100%;" >
+                    
+                        <p class="heading-main12" style="margin-left: 45px;font-size:18px;color:rgb(49, 49, 49)">
+                            <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
+                            All Sessions (<?php echo $list110->num_rows; ?>)
+                        </p>
                     </td>
-                
+                    
                 </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-dashbord" >
-                        <a href="index.php" class="non-style-link-menu"><div><p class="menu-text">Dashboard</p></a></div></a>
-                    </td>
-                </tr>
-                <tr class="menu-row">
-                    <td class="menu-btn menu-icon-doctor ">
-                        <a href="doctors.php" class="non-style-link-menu "><div><p class="menu-text">Doctors</p></a></div>
-                    </td>
-                </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-schedule menu-active menu-icon-schedule-active">
-                        <a href="schedule.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Schedule</p></div></a>
-                    </td>
-                </tr>
-                <tr class="menu-row">
-                    <td class="menu-btn menu-icon-appoinment">
-                        <a href="appointment.php" class="non-style-link-menu"><div><p class="menu-text">Appointment</p></a></div>
-                    </td>
-                </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-patient">
-                        <a href="patient.php" class="non-style-link-menu"><div><p class="menu-text">Patients</p></a></div>
-                    </td>
-                </tr>
-
-            </table>
-        </div>
-        <div class="dash-body">
-            <table border="0" width="100%" style=" border-spacing: 0;margin:0;padding:0;margin-top:25px; ">
                 <tr >
                     <td width="13%" >
                     <a href="schedule.php" ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><font class="tn-in-text">Back</font></button></a>
@@ -115,7 +38,6 @@
                         $today = date('Y-m-d');
                         echo $today;
 
-                        $list110 = $database->query("select  * from  schedule;");
 
                         ?>
                         </p>
@@ -129,19 +51,12 @@
                
                 <tr>
                     <td colspan="4" >
-                        <div style="display: flex;margin-top: 40px;">
+                        <div style="display: flex;margin: 40px 0;">
                         <div class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49);margin-top: 5px;">Schedule a Session</div>
                         <a href="?action=add-session&id=none&error=0" class="non-style-link"><button  class="login-btn btn-primary btn button-icon"  style="margin-left:25px;background-image: url('../img/icons/add.svg');">Add a Session</font></button>
                         </a>
                         </div>
                     </td>
-                </tr>
-                <tr>
-                    <td colspan="4" style="padding-top:10px;width: 100%;" >
-                    
-                        <p class="heading-main12" style="margin-left: 45px;font-size:18px;color:rgb(49, 49, 49)">All Sessions (<?php echo $list110->num_rows; ?>)</p>
-                    </td>
-                    
                 </tr>
                 <tr>
                     <td colspan="4" style="padding-top:0px;width: 100%;" >
@@ -213,7 +128,7 @@
                         }
                         //echo $sqlpt2;
                         //echo $sqlpt1;
-                        $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid ";
+                        $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop,schedule.procedures from schedule inner join doctor on schedule.docid=doctor.docid ";
                         $sqllist=array($sqlpt1,$sqlpt2);
                         $sqlkeywords=array(" where "," and ");
                         $key2=0;
@@ -230,7 +145,7 @@
                         
                         //
                     }else{
-                        $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid  order by schedule.scheduledate desc";
+                        $sqlmain= "select schedule.scheduleid,schedule.title,doctor.docname,schedule.scheduledate,schedule.scheduletime,schedule.nop,schedule.nop from schedule inner join doctor on schedule.docid=doctor.docid  order by schedule.scheduledate desc";
 
                     }
 
@@ -303,7 +218,12 @@
                                     $title=$row["title"];
                                     $docname=$row["docname"];
                                     $scheduledate=$row["scheduledate"];
-                                    $scheduletime=$row["scheduletime"];
+                                    // $scheduletime=$row["scheduletime"];
+                                    $scheduletime = $row["scheduletime"]; // Assuming $scheduletime is in 24-hour format, e.g. "13:30"
+
+                                    // Convert to AM/PM format
+                                    $formatted_time = date("h:i A", strtotime($scheduletime)); // Outputs e.g. "01:30 PM"
+
                                     $nop=$row["nop"];
                                     echo '<tr>
                                         <td> &nbsp;'.
@@ -313,7 +233,7 @@
                                         '.substr($docname,0,20).'
                                         </td>
                                         <td style="text-align:center;">
-                                            '.substr($scheduledate,0,10).' '.substr($scheduletime,0,5).'
+                                            '.substr($scheduledate,0,10).' '.substr($formatted_time,0,5).'
                                         </td>
                                         <td style="text-align:center;">
                                             '.$nop.'
@@ -405,6 +325,33 @@
                                             $row00=$list11->fetch_assoc();
                                             $sn=$row00["docname"];
                                             $id00=$row00["docid"];
+                                            echo "<option value=".$id00.">$sn</option><br/>";
+                                        };
+        
+        
+        
+                                        
+                        echo     '       </select><br><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                
+                                <td class="label-td" colspan="2">
+                                    <label for="id" class="form-label">Select Procedure: </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-td" colspan="2">
+                                    <select name="id" id="" class="box" >
+                                    <option value="" disabled selected hidden>Choose Procedure to the list</option><br/>';
+                                        
+        
+                                        $list11 = $database->query("select  * from  procedures order by pname asc;");
+        
+                                        for ($y=0;$y<$list11->num_rows;$y++){
+                                            $row00=$list11->fetch_assoc();
+                                            $sn=$row00["pname"];
+                                            $id00=$row00["id"];
                                             echo "<option value=".$id00.">$sn</option><br/>";
                                         };
         
@@ -515,7 +462,12 @@
             $scheduleid=$row["scheduleid"];
             $title=$row["title"];
             $scheduledate=$row["scheduledate"];
-            $scheduletime=$row["scheduletime"];
+            // $scheduletime=$row["scheduletime"];
+
+            $scheduletime = $row["scheduletime"]; // Assuming $scheduletime is in 24-hour format, e.g. "13:30"
+
+            // Convert to AM/PM format
+            $formatted_time = date("h:i A", strtotime($scheduletime)); // Outputs e.g. "01:30 PM"
             
            
             $nop=$row['nop'];
@@ -581,7 +533,7 @@
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                '.$scheduletime.'<br><br>
+                                '.$formatted_time.'<br><br>
                                 </td>
                             </tr>
                             <tr>
@@ -696,5 +648,5 @@
     ?>
     </div>
 
-</body>
-</html>
+    <!-- footer script start -->
+    <?php include("../default/doctor/footer.php") ?>

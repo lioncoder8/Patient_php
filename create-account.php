@@ -48,7 +48,7 @@ if($_POST){
     $lname=$_SESSION['personal']['lname'];
     $name=$fname." ".$lname;
     $address=$_SESSION['personal']['address'];
-    $nic=$_SESSION['personal']['nic'];
+	$nic=$_SESSION['personal']['nic'];
     $dob=$_SESSION['personal']['dob'];
     $email=$_POST['newemail'];
     $tele=$_POST['tele'];
@@ -116,7 +116,9 @@ if($_POST){
             </tr>
             <tr>
                 <td class="label-td" colspan="2">
-                    <input type="text" name="tele" class="input-text" placeholder="ex: 09123456789" pattern="[0]{1}[0-9]{9}" >
+                <!-- <input type="tel" name="tele" class="input-text" placeholder="ex:+639123456789" pattern="\+63\d{910}" value="+63" required> -->
+                <input type="tel" name="tele" class="input-text" placeholder="ex: 09123456789" value="+63" pattern="+63\d{10}" required>
+
                 </td>
             </tr>
             <tr>
@@ -126,17 +128,22 @@ if($_POST){
             </tr>
             <tr>
                 <td class="label-td" colspan="2">
-                    <input type="password" name="newpassword" class="input-text" placeholder="New Password" required>
+                <label for="newpassword">Password must contain aleast 1 number 1 special character and 1 Uppercase Letter</label>
+                <input type="password" name="newpassword" id="newpassword" class="input-text" placeholder="New Password" required>
+                <span id="password-strength"></span>
                 </td>
             </tr>
             <tr>
                 <td class="label-td" colspan="2">
                     <label for="cpassword" class="form-label">Confirm Password: </label>
+                    
                 </td>
             </tr>
             <tr>
                 <td class="label-td" colspan="2">
-                    <input type="password" name="cpassword" class="input-text" placeholder="Confirm Password" required>
+                <label for="newpassword">Password must contain aleast 1 number 1 special character and 1 Uppercase Letter</label>
+                <input type="password" name="cpassword" id="cpassword" class="input-text" placeholder="Confirm Password" required>
+                <span id="password-match"></span>
                 </td>
             </tr>
      
@@ -172,5 +179,60 @@ if($_POST){
 
     </div>
 </center>
+<script>
+    // Get the password input fields
+    var newPassword = document.getElementById("newpassword");
+    var confirmPassword = document.getElementById("cpassword");
+
+    // Every time the user types in the password fields, check the password strength and match, and display a message
+    newPassword.addEventListener("input", checkPasswords);
+    confirmPassword.addEventListener("input", checkPasswords);
+
+    function checkPasswords() {
+        var passwordStrength = checkPasswordStrength(newPassword.value);
+        var messageStrength = "";
+
+        switch(passwordStrength) {
+            case "strong":
+                messageStrength = "Password is strong";
+                break;
+            case "medium":
+                messageStrength = "Password is medium";
+                break;
+            case "weak":
+                messageStrength = "Password is too weak";
+                break;
+            default:
+                messageStrength = "";
+                break;
+        }
+
+        // Update the message in the password-strength span
+        var passwordStrengthSpan = document.getElementById("password-strength");
+        passwordStrengthSpan.innerHTML = messageStrength;
+
+        // Check if the passwords match and display a message
+        var messageMatch = "";
+        if (newPassword.value !== confirmPassword.value) {
+            messageMatch = "Passwords do not match";
+        }
+
+        // Update the message in the password-match span
+        var passwordMatchSpan = document.getElementById("password-match");
+        passwordMatchSpan.innerHTML = messageMatch;
+    }
+
+    // Function to check the strength of the password
+    function checkPasswordStrength(password) {
+        if (password.length >= 8 && /\d/.test(password) && /[a-z]/.test(password) && /[A-Z]/.test(password) && /\W/.test(password)) {
+            return "strong";
+        } else if (password.length >= 6 && /\d/.test(password) && /[a-z]/.test(password)) {
+            return "medium";
+        } else {
+            return "weak";
+        }
+    }
+</script>
+
 </body>
 </html>

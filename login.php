@@ -111,17 +111,12 @@
 
     ?>
 
-<html>
-<body>
 
 
 
-<div class="logo1">
+
     <center>
-    
-    <img src="logo1.png">
     <div class="container">
-    
         <table border="0" style="margin: 0;padding: 0;width: 60%;">
             <tr>
                 <td>
@@ -157,8 +152,10 @@
                 </td>
             </tr>
 
-
-            <tr>
+                <td>
+               <a href="forgot_password.php" class="hover-link1 non-style-link">Forgot password?</a>
+               </td>
+            </tr>            <tr>
                 <td><br>
                 <?php echo $error ?>
                 </td>
@@ -167,12 +164,14 @@
             <tr>
                 <td>
                     <input type="submit" value="Login" class="login-btn btn-primary btn">
+                    
                 </td>
             </tr>
         </div>
             <tr>
                 <td>
                     <br>
+                    
                     <label for="" class="sub-text" style="font-weight: 280;">Don't have an account&#63; </label>
                     <a href="signup.php" class="hover-link1 non-style-link">Sign Up</a>
                     <br><br><br>
@@ -186,25 +185,6 @@
         </table>
 
     </div>
-    
-    </div>
-
 </center>
 </body>
 </html>
-
-
-<style>
-
-img{ height:100px;
-    
-}
-body {
-  background-image: url('bg01.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  background-size: 100% 100%;
-}
-
-</style>
