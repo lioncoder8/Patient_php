@@ -108,14 +108,10 @@
                                     Email
                                 </th>
                                 <th class="table-headin">
-                                    
                                     Specialties
-                                    
                                 </th>
                                 <th class="table-headin">
-                                    
                                     Events
-                                    
                                 </tr>
                         </thead>
                         <tbody>
@@ -381,22 +377,40 @@
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                    <select name="spec" id="" class="box" >';
-                                        
-        
-                                        $list11 = $database->query("select  * from  specialties order by sname asc;");
-        
+                                    <select name="spec" id="specChange" class="box" onchange = "showSpecial(this.value)"><option value="0"></option><br/>';
+                                        $list11 = $database->query("select  * from  specialties where choose_type='s' order by id asc;");
+       
                                         for ($y=0;$y<$list11->num_rows;$y++){
                                             $row00=$list11->fetch_assoc();
                                             $sn=$row00["sname"];
                                             $id00=$row00["id"];
                                             echo "<option value=".$id00.">$sn</option><br/>";
                                         };
-        
-        
-        
+                                    echo'</select><br>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="label-td" colspan="2">
+                                    <label for="spec" class="form-label">Choose Procedures:</label>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-td" colspan="2">
+                                    <select name="prod" id="prodChange" class="box"><option value="0"></option><br/>';
                                         
-                        echo     '       </select><br>
+                                        $list11 = $database->query("select  * from  specialties where choose_type='p' order by id asc;");
+        
+                                        for ($y=0;$y<$list11->num_rows;$y++){
+                                            $row001=$list11->fetch_assoc();
+                                            $pn=$row001["sname"];
+                                            $id001=$row001["id"];
+                                            $id002=$row001["choose_id"];
+                                            echo "<option class = 'specialpoint' data-sort = ".$id002." value=".$id001.">$pn</option><br/>";
+                                        };
+
+                                    echo'</select><br><br>
                                 </td>
                             </tr>
                             <tr>
@@ -549,55 +563,47 @@
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                            <label for="spec" class="form-label">Choose specialties: (Current'.$spcil_name.')</label>
+                                            <label for="spec" class="form-label">Choose specialties:</label>
                                             
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                            <select name="spec" id="" class="box">';
-                                                
-                
-                                                $list11 = $database->query("select  * from  specialties;");
-                
-                                                for ($y=0;$y<$list11->num_rows;$y++){
-                                                    $row00=$list11->fetch_assoc();
-                                                    $sn=$row00["sname"];
-                                                    $id00=$row00["id"];
-                                                    echo "<option value=".$id00.">$sn</option><br/>";
-                                                };
-                
-                
-                
-                                                
-                                echo     '       </select><br><br>
+                                        <select name="spec" id="e_specChange" class="box" onchange = "change_edit(this)"><option value="0"></option><br/>';
+                                            $list11 = $database->query("select  * from  specialties where choose_type='s' order by id asc;");
+                                            for ($y=0;$y<$list11->num_rows;$y++){
+                                                $row00=$list11->fetch_assoc();
+                                                $sn=$row00["sname"];
+                                                $id00=$row00["id"];
+                                                echo "<option value=".$id00." ".($sn==$spcil_name?'selected':'').">$sn</option><br/>";
+                                                if($sn==$spcil_name)$idset = $id00;
+                                            };
+                                            echo '</select><br><br>
                                         </td>
                                     </tr>
 									
 									<tr>
                                         <td class="label-td" colspan="2">
-                                            <label for="spec" class="form-label">Choose Procedures: (Current'.$spcil2_name.')</label>
+                                            <label for="spec" class="form-label">Choose Procedures: </label>
                                             
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="label-td" colspan="2">
-                                            <select name="prod" id="" class="box">';
-                                                
-                
-                                                $list11 = $database->query("select  * from  procedures;");
-                
-                                                for ($y=0;$y<$list11->num_rows;$y++){
-                                                    $row00=$list11->fetch_assoc();
-                                                    $pn=$row00["pname"];
-                                                    $id001=$row001["id"];
-                                                    echo "<option value=".$id001.">$pn</option><br/>";
-                                                };
-                
-                
-                
-                                                
-                                echo     '       </select><br><br>
+                                            <select name="prod" id="e_prodChange" class="box"><option value="0"></option><br/>';
+                                                                                       
+                                            $list11 = $database->query("select  * from  specialties where choose_type='p' order by id asc;");
+
+                                            for ($y=0;$y<$list11->num_rows;$y++){
+                                                $row001=$list11->fetch_assoc();
+                                                $pn=$row001["sname"];
+                                                $id001=$row001["id"];
+                                                $id002=$row001["choose_id"];
+                                                echo "<option class = 'e_specialpoint' data-sort = "
+                                                .$id002." value=".$id001." ".($prod==$id001?'selected':'')
+                                                .">$pn</option><br/>";
+                                            };
+                                            echo '</select><br><br>
                                         </td>
                                     </tr>
 									
@@ -672,6 +678,42 @@
 ?>
 </div>
 
-
+<script>
+    change_edit();
+    showSpecial(0);
+    var specChange = document.getElementById("specChange");
+    
+    // specChange.onchange = function() {showSpecial(this.value)};
+    function showSpecial(params) {
+        var specialpoints = document.querySelectorAll(".specialpoint");
+        for (let i = 0; i < specialpoints.length; i++) {
+            if (specialpoints[i].dataset.sort == params) {
+                specialpoints[i].style.display = "";
+            } else {
+                specialpoints[i].style.display = "none";
+            }
+        }
+        if (document.getElementById("prodChange")) {
+            document.getElementById("prodChange").value = "0";
+            
+        }
+    }
+    function change_edit(e = -1) {
+        var e_specChange = document.getElementById("e_specChange");
+        if (e_specChange) {
+            var e_specialpoints = document.querySelectorAll(".e_specialpoint");
+            for (let i = 0; i < e_specialpoints.length; i++) {
+                if (e_specialpoints[i].dataset.sort == e_specChange.value) {
+                    e_specialpoints[i].style.display = "";
+                } else {
+                    e_specialpoints[i].style.display = "none";
+                }
+            }
+            if (document.getElementById("e_prodChange") && e !=-1) {
+                document.getElementById("e_prodChange").value = "0";
+            }
+        }
+    }
+</script>
     <!-- footer script start -->
     <?php include("../default/doctor/footer.php") ?>

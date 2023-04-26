@@ -55,3 +55,7 @@ td{
     margin-bottom: 15px;
     width: 100%;
 }
+.hint_text {
+    color:rgb(100, 91, 91);
+    font-size:13px;
+  }

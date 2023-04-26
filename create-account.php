@@ -127,8 +127,8 @@ if($_POST){
             </tr>
             <tr>
                 <td class="label-td" colspan="2">
-                <label for="newpassword">Password must contain aleast 1 number 1 special character and 1 Uppercase Letter</label>
                 <input type="password" name="newpassword" id="newpassword" class="input-text" placeholder="New Password" required>
+                <div class = "hint_text">Password must contain at least one uppercase letter, one digit and one special character.</div>
                 <span id="password-strength"></span>
                 </td>
             </tr>
@@ -140,8 +140,9 @@ if($_POST){
             </tr>
             <tr>
                 <td class="label-td" colspan="2">
-                <label for="newpassword">Password must contain aleast 1 number 1 special character and 1 Uppercase Letter</label>
+                <label for="newpassword"></label>
                 <input type="password" name="cpassword" id="cpassword" class="input-text" placeholder="Confirm Password" required>
+                <!-- <div class = "hint_text">Password must contain aleast 1 number 1 special character and 1 Uppercase Letter</div> -->
                 <span id="password-match"></span>
                 </td>
             </tr>
