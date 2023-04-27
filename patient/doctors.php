@@ -248,9 +248,11 @@
             $spcil_name=$spcil_array["sname"];
             $tele=$row['doctel'];
 			
-			
+            $proc=$row["procedures"];
+            $proc_res= $database->query("select sname from specialties where id='$proc'");
+            $proc_array= $proc_res->fetch_assoc();
+            $proc_name=$proc_array["sname"];
 
-			
             echo '
             <div id="popup1" class="overlay">
                     <div class="popup">
@@ -309,17 +311,25 @@
                                 </td>
                             </tr>
                             <tr>
-                            <td class="label-td" colspan="2">
-                            '.$spcil_name.'<br><br>
-                            </td>
+                                <td class="label-td" colspan="2">
+                                '.$spcil_name.'<br><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-td" colspan="2">
+                                    <label for="spec" class="form-label">Procedures: </label>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-td" colspan="2">
+                                '.$proc_name.'<br><br>
+                                </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
                                     <a href="doctors.php"><input type="button" value="OK" class="login-btn btn-primary-soft btn" ></a>
-                                
-                                    
                                 </td>
-                
                             </tr>
                            
 
@@ -368,6 +378,7 @@
             $spcil_res= $database->query("select sname from specialties where id='$spe'");
             $spcil_array= $spcil_res->fetch_assoc();
             $spcil_name=$spcil_array["sname"];
+
             $tele=$row['doctel'];
 
             $error_1=$_GET["error"];
